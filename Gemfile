@@ -47,6 +47,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'pry'
 end
 
 group :production do
@@ -66,8 +67,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'figaro'
-gem 'bootstrap-sass', '3.3.7'
-gem 'jquery-rails'
-gem 'font-awesome-rails'
+gem 'dotenv-rails'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem 'devise'
+gem 'paperclip', git: 'git://github.com/thoughtbot/paperclip.git'
