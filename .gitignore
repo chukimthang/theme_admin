@@ -35,3 +35,4 @@
 /db/schema.rb
 /public/system
 .env
+/.idea

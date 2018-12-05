@@ -1,5 +1,6 @@
 /*
+ *= require bootstrap.min
+ *= require font-awesome.min
  *= require_self
- *= require font-awesome
  *= require_tree ./backend/
 */
