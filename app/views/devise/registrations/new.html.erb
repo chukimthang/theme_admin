@@ -7,23 +7,23 @@
 
       <div class="form-group has-feedback">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="fa fa-envelope-o form-control-feedback"></span>
       </div>
 
       <div class="form-group has-feedback">
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class="fa fa-lock form-control-feedback"></span>
       </div>
 
       <div class="form-group has-feedback">
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Password Confirmation" %>
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <span class="fa fa-lock form-control-feedback"></span>
       </div>
 
       <%= f.fields_for :profile do |ff| %>
         <div class="form-group has-feedback">
           <%= ff.text_field :full_name, autofocus: true, class: "form-control", placeholder: "Full Name" %>
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <span class="fa fa-text-width form-control-feedback"></span>
         </div>
       <% end %>
 
