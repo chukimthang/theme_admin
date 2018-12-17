@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   scope :admin do
     scope module: :backend do
-      root "application#index"
+      root "home#index"
     end
   end
 

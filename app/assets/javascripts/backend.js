@@ -4,4 +4,4 @@
 //= require turbolinks
 //= require_tree ./backend/shared
 //= require backend/adminlte
-
+//= require backend/common
