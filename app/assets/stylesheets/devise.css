@@ -109,3 +109,13 @@ a:hover, a:active, a:focus {
 .label-member-me {
   padding-left: 0px !important;
 }
+
+.login-box-body .form-control-feedback, .register-box-body .form-control-feedback {
+  color: #777;
+}
+
+.login-box-body .fa {
+  font-weight: 400;
+  font-style: normal;
+  line-height: 2.42857143 !important;
+}

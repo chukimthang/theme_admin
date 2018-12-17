@@ -11,79 +11,13 @@
 
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-        <li class="dropdown messages-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-envelope-o"></i>
-            <span class="label label-success">2</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">You have 2 messages</li>
-            <li>
-              <ul class="menu">
-                <li>
-                  <a href="#">
-                    <div class="pull-left">
-                      <%= image_tag "user2-160x160.jpg", class: "img-circle", alt: "User Image" %>
-                    </div>
-                    <h4>
-                      Support Team
-                      <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#">
-                    <div class="pull-left">
-                      <%= image_tag "user2-160x160.jpg", class: "img-circle", alt: "User Image" %>
-                    </div>
-                    <h4>
-                      AdminLTE Design Team
-                      <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="footer"><a href="#">See All Messages</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown notifications-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-bell-o"></i>
-            <span class="label label-warning">10</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">You have 10 notifications</li>
-            <li>
-              <ul class="menu">
-                <li>
-                  <a href="#">
-                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                    page and may cause design problems
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="footer"><a href="#">View all</a></li>
-          </ul>
-        </li>
-
         <li class="dropdown tasks-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-flag-o"></i>
-            <span class="label label-danger">9</span>
+            <span class="label label-danger">0</span>
           </a>
           <ul class="dropdown-menu">
-            <li class="header">You have 9 tasks</li>
+            <li class="header">You have 0 tasks</li>
             <li>
               <ul class="menu">
                 <li>
@@ -124,39 +58,22 @@
 
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <%= image_tag "user2-160x160.jpg", class: "user-image", alt: "User Image" %>
-            <span class="hidden-xs">Alexander Pierce</span>
+            <%= image_tag "avatar.png", class: "user-image", alt: "User Image" %>
+            <span class="hidden-xs"><%= current_user.email %></span>
           </a>
           <ul class="dropdown-menu">
             <li class="user-header">
-              <%= image_tag "user2-160x160.jpg", class: "img-circle", alt: "User Image" %>
+              <%= image_tag "avatar.png", class: "img-circle", alt: "User Image" %>
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+                <%= current_user.email %>
               </p>
             </li>
-
-            <li class="user-body">
-              <div class="row">
-                <div class="col-xs-4 text-center">
-                  <a href="#">Followers</a>
-                </div>
-                <div class="col-xs-4 text-center">
-                  <a href="#">Sales</a>
-                </div>
-                <div class="col-xs-4 text-center">
-                  <a href="#">Friends</a>
-                </div>
-              </div>
-            </li>
-
             <li class="user-footer">
               <div class="pull-left">
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <%= link_to "Signout", destroy_user_session_url(:authenticity_token => form_authenticity_token()),
-                            method: :delete, class: "btn btn-default btn-flat" %>
+                <%= link_to "Signout", destroy_user_session_path, method: :delete, class: "btn btn-default btn-flat" %>
               </div>
             </li>
           </ul>
