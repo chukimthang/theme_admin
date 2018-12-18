@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
 
-  scope :admin do
+  scope :admin, as: :admin do
     scope module: :backend do
       root "home#index"
+      resources :groups, except: [:new, :show]
     end
   end
 
