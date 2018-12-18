@@ -1,0 +1,30 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">
+        <%= action_name %> group
+      </h4>
+    </div>
+    <div class="clearfix"></div>
+
+    <%= form_for @group, url: "", html: {class: "form-horizontal", id: form_id} do |f| %>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="col-md-2 control-label">Name
+            <span class="require"> * </span></div>
+          <div class="col-md-10">
+            <%= f.text_field :name, {class: "form-control", placeholder: "Name"} %>
+            <div class="error-content name"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="btn btn-default" data-dismiss="modal">Cancel</a>
+        <a href="javascript:void(0)" class="btn btn-primary btn-confirm-save"><%= action_name %></a>
+      </div>
+    <% end %>
+  </div>
+</div>

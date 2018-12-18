@@ -1,27 +1,30 @@
 <aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="active treeview">
-        <a href="#">
-          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
+      <li class="<%= "active" if controller_name == "home" %>">
+        <%= link_to admin_root_path do %>
+          <i class="fa fa-dashboard"></i><span>Dashboard</span>
+        <% end %>
       </li>
 
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-table"></i> <span>Tables</span>
-          <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-          <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-        </ul>
+      <li class="<%= "active" if controller_name == "groups" %>">
+        <%= link_to admin_groups_path do %>
+          <i class="fa fa-users"></i><span>Group</span>
+        <% end %>
       </li>
+
+<!--      <li class="treeview">-->
+<!--        <a href="#">-->
+<!--          <i class="fa fa-table"></i> <span>Tables</span>-->
+<!--          <span class="pull-right-container">-->
+<!--              <i class="fa fa-angle-left pull-right"></i>-->
+<!--            </span>-->
+<!--        </a>-->
+<!--        <ul class="treeview-menu">-->
+<!--          <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>-->
+<!--          <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>-->
+<!--        </ul>-->
+<!--      </li>-->
     </ul>
   </section>
 </aside>

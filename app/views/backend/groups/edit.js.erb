@@ -1,0 +1,3 @@
+str = "<%= escape_javascript(render partial: 'form', locals: { group: @group, action_name: 'Update', form_id: 'frm-group-update' } ) %>";
+$("#modal-edit-group").html(str);
+$("#modal-edit-group").modal("show");

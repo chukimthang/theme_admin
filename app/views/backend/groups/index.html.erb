@@ -1,74 +1,63 @@
-<div class="breadcrumb">
-  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-  <li><a href="#">Tables</a></li>
-  <li class="active">Simple</li>
+<%= render partial: "layouts/backend/breadcrumb", locals: {breadcrumbs: @breadcrumbs} %>
+
+<div class="col-md-12">
+  <%= render partial: "backend/shared/alert" %>
 </div>
 
 <section class="content-header">
-  <h1>Simple Tables</h1>
+  <div class="row">
+    <h1 class="col-md-11 page-header">List Group</h1>
+    <div class="col-md-1" align="right">
+      <%= link_to "Add", "#modal-new-group", class: "btn btn-primary", data: {toggle: "modal"} %>
+    </div>
+  </div>
 </section>
 
-<section class="content">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-            <tr>
-              <th>ID</th>
-              <th>User</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Reason</th>
-              <th>Action</th>
-            </tr>
-            <tr>
-              <td>183</td>
-              <td>John Doe</td>
-              <td>11-7-2014</td>
-              <td><span class="label label-success">Approved</span></td>
-              <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              <td>
-                <dspan class="fa fa-edit"></dspan>
+<section class="content" id="group-listing">
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-striped" width="90%">
+        <thead>
+        <tr>
+          <th class="col-md-1">Index</th>
+          <th class="col-md-6">Name</th>
+          <th class="col-md-4">Created at</th>
+          <th class="col-md-1">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @groups.each_with_index do |group, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= group.name %></td>
+            <td><%= format_to_only_date group.created_at %></td>
+            <td>
+              <%= link_to "javascript:void(0)", class: "action-icon edit", data: {id: group.id} do %>
+                <span class="fa fa-edit"></span>
+              <% end %>
+              <%= link_to "#modal-delete", class: "action-icon remove", data: {toggle: "modal", id: group.id} do %>
                 <span class="fa fa-remove"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>219</td>
-              <td>Alexander Pierce</td>
-              <td>11-7-2014</td>
-              <td><span class="label label-warning">Pending</span></td>
-              <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              <td>
-                <dspan class="fa fa-edit"></dspan>
-                <span class="fa fa-remove"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>657</td>
-              <td>Bob Doe</td>
-              <td>11-7-2014</td>
-              <td><span class="label label-primary">Approved</span></td>
-              <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              <td>
-                <dspan class="fa fa-edit"></dspan>
-                <span class="fa fa-remove"></span>
-              </td>
-            </tr>
-            <tr>
-              <td>175</td>
-              <td>Mike Doe</td>
-              <td>11-7-2014</td>
-              <td><span class="label label-danger">Denied</span></td>
-              <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-              <td>
-                <dspan class="fa fa-edit"></dspan>
-                <span class="fa fa-remove"></span>
-              </td>
-            </tr>
-          </table>
-        </div>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div class="text-center">
+        <%= paginate @groups, theme: "twitter-bootstrap-3" %>
       </div>
     </div>
   </div>
 </section>
+
+<div class="modal fade" id="modal-new-group" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <%= render partial: "backend/groups/form", locals: {action_name: "Add", form_id: "frm-group-new"} %>
+</div>
+
+<div class="modal fade" id="modal-edit-group" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+<%= render partial: "backend/shared/delete", locals: {model_name: "Group"} %>
