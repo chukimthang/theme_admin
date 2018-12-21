@@ -1,0 +1,61 @@
+<%= render partial: "layouts/backend/breadcrumb", locals: {breadcrumbs: @breadcrumbs} %>
+
+<div class="col-md-12">
+  <%= render partial: "backend/shared/alert" %>
+</div>
+<div class="clearfix"></div>
+
+<section class="content listing-wrapper" id="user-listing">
+  <div class="box">
+    <div class="col-md-12 page-header">
+      <h3 class="pull-left">List User</h3>
+      <div class="pull-right">
+        <%= link_to "Add", new_admin_user_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <div class="box-body">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th class="col-md-1">Index</th>
+          <th>Email</th>
+          <th>Full Name</th>
+          <th>Gender</th>
+          <th>Birthday</th>
+          <th>Status</th>
+          <th>Created at</th>
+          <th class="col-md-1">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users.each_with_index do |user, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= user.email %></td>
+            <td><%= user.profile_full_name %></td>
+            <td><%= user.gender ? "Male" : "Female" %></td>
+            <td><%= format_to_only_date user.profile_birthday %></td>
+            <td><%= user.is_deleted ? "Inactive" : "Active" %></td>
+            <td><%= format_to_only_date user.created_at %></td>
+            <td>
+              <%= link_to edit_admin_user_path(user), class: "action-icon edit" do %>
+                <span class="fa fa-edit"></span>
+              <% end %>
+              <%= link_to "#modal-delete", class: "action-icon remove", data: {toggle: "modal", id: user.id} do %>
+                <span class="fa fa-remove"></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div class="text-center">
+        <%= paginate @users, theme: "twitter-bootstrap-3" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render partial: "backend/shared/delete", locals: {model_name: "User"} %>
