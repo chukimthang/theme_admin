@@ -1,0 +1,100 @@
+<%= form_for [:admin, user], html: {class: "form-horizontal", multipart: true} do |f| %>
+  <div class="box-body col-md-8">
+    <div class="form-group row">
+      <%= f.label :email, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.text_field :email, class: "form-control" %>
+        <div class="error-content"><%= show_errors user, :email %></div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :password, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.password_field :password, class: "form-control" %>
+        <div class="error-content"><%= show_errors user, :password %></div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :password_confirmation, class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+        <div class="error-content"><%= show_errors user, :password_confirmation %></div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :is_admin, "Admin", class: "col-md-4 control-label" %>
+      <div class="col-md-8 radio-content">
+        <%= f.radio_button :is_admin, 1, class: "icheck-me", data: {skin: "square", color: "blue"} %>
+        <span>Admin</span>
+        <%= f.radio_button :is_admin, 0, class: "icheck-me", checked: true, data: {skin: "square", color: "blue"} %>
+        <span>Normal user</span>
+      </div>
+    </div>
+
+    <%= f.fields_for :profile do |ff| %>
+      <div class="form-group row">
+        <%= ff.label :full_name, class: "col-md-4 control-label" %>
+        <div class="col-md-8">
+          <%= ff.text_field :full_name, class: "form-control" %>
+          <div class="error-content"><%= show_errors user.profile, :full_name %></div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= ff.label :birthday, class: "col-md-4 control-label" %>
+
+        <div class="col-md-8 input-group date">
+          <%= ff.text_field :birthday, class: "form-control pull-right", id: "datepicker" %>
+          <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="error-content col-md-8"><%= show_errors user.profile, :birthday %></div>
+      </div>
+
+      <div class="form-group row">
+        <%= ff.label :avatar, class: "col-md-4 control-label" %>
+
+        <div class="col-md-8">
+          <label for="file-upload-image" class="style-file-upload">
+            <% name_image = show_errors(user.profile, :avatar).nil? ? user.profile.avatar.url : "avatar.png" %>
+            <%= image_tag name_image, has_attached_file: :avatar, size: "150x150",
+                        class: "avatar img-thumbnail", id: "preview-image" %>
+            <%= ff.file_field :avatar, class: "text-center center-block file-upload", id: "file-upload-image" %>
+            <div class="error-content"><%= show_errors user.profile, :avatar %></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= ff.label :description, class: "col-md-4 control-label" %>
+
+        <div class="col-md-8">
+          <%= ff.text_area :description, class: "form-control" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="form-group row">
+      <%= f.label :hobby_ids, "Hobbies", class: "col-md-4 control-label" %>
+
+      <div class="col-md-8 checkbox-content">
+        <%= f.collection_check_boxes(:hobby_ids, @hobbies, :id, :name, checked: user.hobbies.map(&:id)) do |ff| %>
+          <%= ff.check_box class: "icheck-me", data: {skin: "square", color: "blue"} %>
+          <span class="hobby-name"><%= ff.label %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-footer">
+    <div class="col-md-8">
+      <%= f.submit "Update", class: "btn btn-info col-md-offset-4" %>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+<% end %>

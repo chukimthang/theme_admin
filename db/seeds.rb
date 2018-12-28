@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+CONSTANT::HOBBIES.each do |value|
+  Hobby.find_or_create_by(name: value)
+end

@@ -4,7 +4,7 @@ class Backend::GroupsController < Backend::BaseController
 
   def index
     @breadcrumbs = {"Group" => admin_groups_path, "List" => nil}
-    @groups = current_user.groups.without_deleted.order(:name).page(params[:page]).per(PAGE_SIZE)
+    @groups = current_user.groups.without_deleted.order(:name).page(params[:page]).per(CONSTANT::PAGE_SIZE)
     @group = current_user.groups.new
   end
 
