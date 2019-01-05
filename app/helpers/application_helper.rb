@@ -3,6 +3,10 @@ module ApplicationHelper
     datetime.strftime("%d %b %Y") if datetime
   end
 
+  def show_date_in_form datetime
+    datetime.strftime("%Y-%m-%d") if datetime
+  end
+
   def show_errors object, field_name
     unless object.errors.nil?
       if object.errors.any? && !object.errors.messages[field_name].blank?

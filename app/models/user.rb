@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :user_hobbies, dependent: :destroy
   has_many :hobbies, through: :user_hobbies
 
-  validates :email, presence: true, format: {with: /\A([a-zA-Z0-9]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
+  validates :email, presence: true, format: {with: /\A([a-zA-Z0-9_]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
   validates :password, length: {minimum: 6}, allow_nil: true
   validates_confirmation_of :password
 
@@ -18,4 +18,6 @@ class User < ApplicationRecord
   delegate :full_name, to: :profile, allow_nil: true, prefix: true
   delegate :gender, to: :profile, allow_nil: true
   delegate :birthday, to: :profile, allow_nil: true, prefix: true
+
+  enum role: [:normal_user, :super_admin]
 end

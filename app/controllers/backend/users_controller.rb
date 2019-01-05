@@ -1,4 +1,6 @@
 class Backend::UsersController < Backend::BaseController
+  authorize_resource
+
   before_action :find_user, only: [:edit, :update, :destroy]
 
   def index
@@ -70,25 +72,21 @@ class Backend::UsersController < Backend::BaseController
 
   def user_params
     if params[:user][:password].blank?
-      params.require(:user).permit(:email, :is_admin, profile_attributes: [:id, :full_name, :avatar, :gender, :birthday, :description])
+      params.require(:user).permit(:email, :role,
+                                   profile_attributes: [:id, :full_name, :avatar, :gender, :birthday, :description])
     else
-      params.require(:user).permit(:email, :password, :password_confirmation, :is_admin,
+      params.require(:user).permit(:email, :password, :password_confirmation, :role,
                                    profile_attributes: [:id, :full_name, :avatar, :gender, :birthday, :description])
     end
   end
 
   def find_user
     @user = User.find_by_id params[:id]
-
-    if @user.nil?
-      flash[:danger] = "User not found"
-
-      redirect_to admin_users_path
-    end
+    redirect_to admin_users_path, flash: {danger: "User not found"} unless @user
   end
 
   def update_user_target user, target
-    target_ids = params[:user]["#{target.singularize}_ids".to_sym]
+    target_ids = params[:user]["#{target.singularize}_ids".to_sym].select {|id| id.present?}
     return unless target_ids.present?
     user.send("user_#{target}").where.not("#{target.singularize}_id": target_ids).delete_all
     target_ids.each do |target_id|
