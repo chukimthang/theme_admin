@@ -1,4 +1,6 @@
 class Backend::GroupsController < Backend::BaseController
+  authorize_resource
+
   skip_before_action :verify_authenticity_token
   before_action :find_group, only: [:edit, :update, :destroy]
 
@@ -68,11 +70,6 @@ class Backend::GroupsController < Backend::BaseController
 
   def find_group
     @group = current_user.groups.find_by_id params[:id]
-
-    if @group.nil?
-      flash[:danger] = "Group not found"
-
-      redirect_to admin_groups_path
-    end
+    redirect_to admin_groups_path, flash: {danger: "Group not found"} unless @group
   end
 end

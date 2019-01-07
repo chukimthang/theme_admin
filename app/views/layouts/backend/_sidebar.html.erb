@@ -7,17 +7,21 @@
         <% end %>
       </li>
 
-      <li class="<%= "active" if controller_name == "groups" %>">
-        <%= link_to admin_groups_path do %>
-          <i class="fa fa-users"></i><span>Group</span>
-        <% end %>
-      </li>
+      <% if can? :index, Group %>
+        <li class="<%= "active" if controller_name == "groups" %>">
+          <%= link_to admin_groups_path do %>
+            <i class="fa fa-users"></i><span>Group</span>
+          <% end %>
+        </li>
+      <% end %>
 
-      <li class="<%= "active" if controller_name == "users" %>">
-        <%= link_to admin_users_path do %>
-          <i class="fa fa-user"></i><span>User</span>
-        <% end %>
-      </li>
+      <% if can? :index, User %>
+        <li class="<%= "active" if controller_name == "users" %>">
+          <%= link_to admin_users_path do %>
+            <i class="fa fa-user"></i><span>User</span>
+          <% end %>
+        </li>
+      <% end %>
 
 <!--      <li class="treeview">-->
 <!--        <a href="#">-->

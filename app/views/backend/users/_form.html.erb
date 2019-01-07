@@ -25,11 +25,11 @@
     </div>
 
     <div class="form-group row">
-      <%= f.label :is_admin, "Admin", class: "col-md-4 control-label" %>
+      <%= f.label :role, "Role", class: "col-md-4 control-label" %>
       <div class="col-md-8 radio-content">
-        <%= f.radio_button :is_admin, 1, class: "icheck-me", data: {skin: "square", color: "blue"} %>
+        <%= f.radio_button :role, :super_admin, class: "icheck-me", data: {skin: "square", color: "blue"} %>
         <span>Admin</span>
-        <%= f.radio_button :is_admin, 0, class: "icheck-me", checked: true, data: {skin: "square", color: "blue"} %>
+        <%= f.radio_button :role, :normal_user, class: "icheck-me", data: {skin: "square", color: "blue"} %>
         <span>Normal user</span>
       </div>
     </div>
@@ -47,7 +47,8 @@
         <%= ff.label :birthday, class: "col-md-4 control-label" %>
 
         <div class="col-md-8 input-group date">
-          <%= ff.text_field :birthday, class: "form-control pull-right", id: "datepicker" %>
+          <%= ff.text_field :birthday, class: "form-control pull-right", id: "datepicker",
+                            value: show_date_in_form(user.profile_birthday) %>
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
           </div>
