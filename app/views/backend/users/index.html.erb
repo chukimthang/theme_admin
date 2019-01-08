@@ -13,28 +13,32 @@
         <%= link_to "Add", new_admin_user_path, class: "btn btn-primary" %>
       </div>
     </div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 content-border-bottom">
+      <%= render partial: "backend/users/search" %>
+    </div>
+    <div class="clearfix"></div>
 
     <div class="box-body">
       <table class="table table-bordered">
         <thead>
         <tr>
-          <th class="col-md-1">Index</th>
+          <th class="col-md-1">ID</th>
           <th>Email</th>
           <th>Full Name</th>
-          <th>Gender</th>
           <th>Birthday</th>
           <th>Status</th>
           <th>Created at</th>
           <th class="col-md-1">Action</th>
         </tr>
         </thead>
-        <tbody>
-        <% @users.each_with_index do |user, index| %>
-          <tr>
-            <td><%= index + 1 %></td>
+        <tbody class="sortable">
+        <% @users.each do |user| %>
+          <tr id="<%= user.sortable_id %>">
+            <td><%= user.id %></td>
             <td><%= user.email %></td>
             <td><%= user.profile_full_name %></td>
-            <td><%= user.gender ? "Male" : "Female" %></td>
             <td><%= format_to_only_date user.profile_birthday %></td>
             <td><%= user.is_deleted ? "Inactive" : "Active" %></td>
             <td><%= format_to_only_date user.created_at %></td>

@@ -1,0 +1,25 @@
+<%= search_form_for @q, url: "/admin/users", method: "get", html: {class: "search-form", id: "seach-form-user"} do |f| %>
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :email_cont, "Email" %>
+      <%= f.search_field :email_cont, class: "form-control", placeholder: "Enter Email", style: "width: 90%;" %>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.fields_for :profile do |ff| %>
+        <%= ff.label :full_name_cont, "Full Name" %>
+        <%= ff.search_field :full_name_cont, class: "form-control", placeholder: "Enter Full Name",
+                            name: "q[profile_full_name_cont]", value: params[:q][:profile_full_name_cont] %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-12 button-head-wrapper">
+    <div class="row">
+      <%= f.submit "Search", class: "btn btn-info" %>
+      <%= link_to "Reset", "javascript:void(0)", class: "btn btn-default reset" %>
+    </div>
+  </div>
+<% end %>
