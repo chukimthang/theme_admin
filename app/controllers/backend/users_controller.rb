@@ -5,7 +5,9 @@ class Backend::UsersController < Backend::BaseController
 
   def index
     @breadcrumbs = {"User" => admin_users_path, "List" => nil}
-    @users = User.includes(:profile).order(:email).page(params[:page]).per(CONSTANT::PAGE_SIZE)
+    params[:q] ||= {}
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true).includes(:profile).order(:sort).page(params[:page]).per(CONSTANT::PAGE_SIZE)
   end
 
   def new

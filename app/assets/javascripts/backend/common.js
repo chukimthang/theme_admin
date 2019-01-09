@@ -14,6 +14,7 @@ $(document).on("turbolinks:load", function() {
     });
 
     icheck();
+    $(".sortable").railsSortable();
   });
 
   function readURL(input) {

@@ -100,3 +100,29 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.content-border-bottom {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+  padding-bottom: 20px;
+}
+
+.search-form label {
+  padding-top: 7px;
+}
+
+.field-search {
+  margin-bottom: 20px;
+}
+
+.search-form .btn {
+  margin-right: 5px;
+}
+
+.search-form .field-search input[type=search] {
+  width: 90%;
+}
+
+.search-form .button-head-wrapper {
+  margin-top: 5px;
+}
