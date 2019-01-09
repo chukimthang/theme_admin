@@ -96,11 +96,6 @@
   border-color: #f5c6cb;
 }
 
-.flash-message-wrapper {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .content-border-bottom {
   border-bottom: 1px solid #eee;
   margin-bottom: 15px;
@@ -125,4 +120,8 @@
 
 .search-form .button-head-wrapper {
   margin-top: 5px;
+}
+
+.select2 {
+  width: 100%;
 }

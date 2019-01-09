@@ -1,0 +1,62 @@
+<%= render partial: "layouts/backend/breadcrumb", locals: {breadcrumbs: @breadcrumbs} %>
+
+<div class="col-md-12">
+  <%= render partial: "backend/shared/alert" %>
+</div>
+
+<div class="clearfix"></div>
+<section class="content listing-wrapper" id="category-listing">
+  <div class="box">
+    <div class="col-md-12 page-header">
+      <h3 class="pull-left">List Category</h3>
+      <div class="pull-right">
+        <%= link_to "Add", new_admin_group_category_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <div class="box-body">
+      <table class="table table-bordered listing-table">
+        <thead>
+        <tr>
+          <th class="col-md-1">Index</th>
+          <th class="col-md-6">Name</th>
+          <th class="col-md-4">Created at</th>
+          <th class="col-md-1">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% index = 0 %>
+
+        <% @categories.each do |category| %>
+          <% ancestors = category.get_ancestors %>
+
+          <% ancestors.each do |a| %>
+            <% indent = " ---  " * a[0] %>
+            <tr>
+              <td><%= index = index + 1 %></td>
+              <td><%= indent + a[1].name %></td>
+              <td><%= format_to_only_date category.created_at %></td>
+              <td>
+                <%= link_to edit_admin_group_category_path(group_id: a[1].group_id, id: a[1].id), class: "action-icon edit" do %>
+                  <span class="fa fa-edit"></span>
+                <% end %>
+                <%= link_to "#modal-delete", class: "action-icon remove",
+                            data: {toggle: "modal", id: a[1].id, group_id: a[1].group_id,
+                                   url: "/admin/groups/#{a[1].group_id}/categories/#{a[1].id}"} do %>
+                  <span class="fa fa-remove"></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div class="text-center">
+        <%= paginate @categories, theme: "twitter-bootstrap-3" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render partial: "backend/shared/delete", locals: {model_name: "Category"} %>

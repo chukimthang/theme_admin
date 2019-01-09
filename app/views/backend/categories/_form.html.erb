@@ -1,0 +1,41 @@
+<%= form_for [:admin, group, category], html: {class: "form-horizontal"} do |f| %>
+  <div class="box-body col-md-8">
+    <div class="form-group row">
+      <div class="col-md-4 control-label">Name
+        <span class="require"> * </span>
+      </div>
+      <div class="col-md-8">
+        <%= f.text_field :name, class: "form-control" %>
+        <div class="error-content"><%= show_errors category, :name %></div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :parent_id, "Parent Category", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <select class="form-control select2" id="category_id" name="category[parent_id]">
+          <option value="">-- All --</option>
+          <% list_category.each do |cate| %>
+            <% ancestors = cate.get_ancestors %>
+
+            <% ancestors.each do |a| %>
+              <% indent = " ---  " * a[0] %>
+              <% if category.parent_id == a[1].id %>
+                <option value="<%= a[1].id %>" selected><%= indent + a[1].name %></option>
+              <% else %>
+                <option value="<%= a[1].id %>"><%= indent + a[1].name %></option>
+              <% end %>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-footer">
+    <div class="col-md-8">
+      <%= f.submit "Save", class: "btn btn-info col-md-offset-4" %>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+<% end %>

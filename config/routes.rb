@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     scope module: :backend do
       root "home#index"
       resources :users
-      resources :groups, except: [:new, :show]
+      resources :groups, except: [:new, :show] do
+        resources :categories, except: [:show]
+      end
     end
   end
 

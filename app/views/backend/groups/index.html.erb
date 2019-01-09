@@ -15,7 +15,7 @@
     </div>
 
     <div class="box-body">
-      <table class="table table-bordered">
+      <table class="table table-bordered listing-table">
         <thead>
         <tr>
           <th class="col-md-1">Index</th>
@@ -28,13 +28,17 @@
         <% @groups.each_with_index do |group, index| %>
           <tr>
             <td><%= index + 1 %></td>
-            <td><%= group.name %></td>
+            <td>
+              <%= link_to admin_group_categories_path(group) do %>
+                <%= group.name %>
+              <% end %>
+            </td>
             <td><%= format_to_only_date group.created_at %></td>
             <td>
               <%= link_to "javascript:void(0)", class: "action-icon edit", data: {id: group.id} do %>
                 <span class="fa fa-edit"></span>
               <% end %>
-              <%= link_to "#modal-delete", class: "action-icon remove", data: {toggle: "modal", id: group.id} do %>
+              <%= link_to "#modal-delete", class: "action-icon remove", data: {toggle: "modal", url: "/admin/groups/#{group.id}"} do %>
                 <span class="fa fa-remove"></span>
               <% end %>
             </td>
