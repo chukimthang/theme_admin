@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   scope :admin, as: :admin do
     scope module: :backend do
       root "home#index"
-      resources :users
+      resources :users do
+        member do
+          post :change_status
+        end
+      end
       resources :groups, except: [:new, :show] do
         resources :categories, except: [:show]
       end

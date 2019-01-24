@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", function() {
+$(document).on("turbolinks:load page:change", function() {
   $(document).ready(function () {
     $("body").click(function () {
       $(".alert").alert("close");
@@ -22,6 +22,8 @@ $(document).on("turbolinks:load", function() {
       $('#btn-confirm-delete').attr('href', url);
     });
   });
+
+  $(".toggle").bootstrapToggle();
 });
 
 function readURL(input) {

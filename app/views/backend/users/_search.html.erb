@@ -16,6 +16,12 @@
     </div>
   </div>
 
+  <div class="col-md-3 field-search">
+    <%= f.label :status_eq, "Status", class: "row" %>
+    <%= f.select :status_eq, options_for_select([["-- All --", nil], ["Active", 1], ["InActive", 0]],
+                                                params[:q][:status_eq]), {}, {class: "form-control row"} %>
+  </div>
+
   <div class="col-md-12 button-head-wrapper">
     <div class="row">
       <%= f.submit "Search", class: "btn btn-info" %>
