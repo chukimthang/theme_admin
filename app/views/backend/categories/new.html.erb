@@ -1,0 +1,9 @@
+<%= render partial: "layouts/backend/breadcrumb", locals: {breadcrumbs: @breadcrumbs} %>
+
+<section class="content">
+  <div class="box">
+    <h1 class="col-md-12 page-header">New Category</h1>
+
+    <%= render partial: "form", locals: {group: @group, category: @category, list_category: @list_category} %>
+  </div>
+</section>

@@ -28,11 +28,6 @@ $(document).on("turbolinks:load", function() {
       onSave(data, url, "PUT");
     });
 
-    $("#group-listing").on("click", ".remove", function () {
-      var id = $(this).data("id");
-      $('#btn-confirm-delete').attr('href', "/admin/groups/" + id);
-    });
-
     $("#modal-new-group").on("hidden.bs.modal", function () {
       $(".error-content").html("");
     });

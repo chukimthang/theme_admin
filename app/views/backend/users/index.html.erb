@@ -21,7 +21,7 @@
     <div class="clearfix"></div>
 
     <div class="box-body">
-      <table class="table table-bordered">
+      <table class="table table-bordered listing-table">
         <thead>
         <tr>
           <th class="col-md-1">ID</th>
@@ -46,7 +46,7 @@
               <%= link_to edit_admin_user_path(user), class: "action-icon edit" do %>
                 <span class="fa fa-edit"></span>
               <% end %>
-              <%= link_to "#modal-delete", class: "action-icon remove", data: {toggle: "modal", id: user.id} do %>
+              <%= link_to "#modal-delete", class: "action-icon remove", data: {toggle: "modal", url: "/admin/users/#{user.id}"} do %>
                 <span class="fa fa-remove"></span>
               <% end %>
             </td>
