@@ -1,7 +1,7 @@
 class Backend::UsersController < Backend::BaseController
   authorize_resource
 
-  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :find_user, only: [:edit, :update, :destroy, :change_status]
 
   def index
     @breadcrumbs = {"User" => admin_users_path, "List" => nil}
@@ -67,6 +67,16 @@ class Backend::UsersController < Backend::BaseController
 
     respond_to do |format|
       format.html {redirect_to admin_users_path}
+    end
+  end
+
+  def change_status
+    respond_to do |format|
+      if @user.update_attribute(:status, params[:status])
+        format.json {render :json => {:status => true}}
+      else
+        format.json {render :json => {:status => false}}
+      end
     end
   end
 
