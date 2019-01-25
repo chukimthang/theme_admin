@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {registrations: "registrations"}
+  devise_for :user, controllers: {
+    sessions: 'backend/sessions',
+    passwords: 'backend/passwords',
+    registrations: 'backend/registrations'
+  }
 
   scope :admin, as: :admin do
     scope module: :backend do
-      root "home#index"
+      root 'home#index'
       resources :users do
         member do
           post :change_status
@@ -16,6 +20,6 @@ Rails.application.routes.draw do
   end
 
   scope module: :frontend do
-    root "application#index"
+    root 'application#index'
   end
 end
