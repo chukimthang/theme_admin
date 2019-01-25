@@ -3,27 +3,29 @@
     <h3 class="login-box-msg">Sign Up</h3>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
-
       <div class="form-group has-feedback">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
         <span class="fa fa-envelope-o form-control-feedback"></span>
+        <%= show_errors resource, :email %>
       </div>
 
       <div class="form-group has-feedback">
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
         <span class="fa fa-lock form-control-feedback"></span>
+        <%= show_errors resource, :password %>
       </div>
 
       <div class="form-group has-feedback">
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Password Confirmation" %>
         <span class="fa fa-lock form-control-feedback"></span>
+        <%= show_errors resource, :password_confirmation %>
       </div>
 
       <%= f.fields_for :profile do |ff| %>
         <div class="form-group has-feedback">
           <%= ff.text_field :full_name, autofocus: true, class: "form-control", placeholder: "Full Name" %>
           <span class="fa fa-text-width form-control-feedback"></span>
+          <%= show_errors resource.profile, :full_name %>
         </div>
       <% end %>
 
@@ -37,7 +39,7 @@
     <div class="clearfix"></div>
 
     <div align="center">
-      <%= render "devise/shared/links" %>
+      <%= render "backend/shared/links" %>
     </div>
   </div>
 </div>
