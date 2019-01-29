@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load", function() {
   $(document).ready(function () {
-    $("#user_profile_attributes_description").froalaEditor();
+    // $("#user_profile_attributes_description").froalaEditor();
 
     $("#seach-form-user").on("click", ".reset", function() {
       $("#q_email_cont").val("");
