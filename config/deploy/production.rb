@@ -9,9 +9,9 @@
 
 set :stage, :production
 set :rails_env, :production
-set :deploy_to, "/deploy/theme_admin"
+set :deploy_to, "/deploy/apps/theme_admin"
 set :puma_env, fetch(:rack_env, fetch(:rails_env, "production"))
-server "ec2-34-221-179-149.us-west-2.compute.amazonaws.com", user: "thangck", roles: %w(web app db), primary: true
+server "ec2-18-223-32-36.us-east-2.compute.amazonaws.com", user: "thangck", roles: %w(web app db), primary: true
 
 # role-based syntax
 # ==================
