@@ -24,10 +24,18 @@
       <% end %>
 
       <% if params[:group_id] %>
-        <% if (can? :index, Category) && (controller_name == "categories") %>
+        <% if can? :index, Category%>
           <li class="<%= "active" if controller_name == "categories" %>">
             <%= link_to admin_group_categories_path do %>
               <i class="fa fa-list"></i><span>Categories</span>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if can? :index, Transaction %>
+          <li class="<%= "active" if controller_name == "transactions" %>">
+            <%= link_to admin_group_transactions_path do %>
+              <i class="fa fa-money"></i><span>Transactions</span>
             <% end %>
           </li>
         <% end %>

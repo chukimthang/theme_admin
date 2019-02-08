@@ -14,7 +14,8 @@ Rails.application.routes.draw do
         end
       end
       resources :groups, except: [:new, :show] do
-        resources :categories, except: [:show]
+        resources :categories, except: :show
+        resources :transactions, except: :show
       end
     end
   end
