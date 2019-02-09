@@ -14,6 +14,8 @@
       <%= render partial: "layouts/backend/sidebar" %>
 
       <div class="content-wrapper">
+        <%= render partial: "layouts/backend/breadcrumb", 
+          locals: {breadcrumbs: @breadcrumbs} %>
         <%= yield %>
       </div>
 

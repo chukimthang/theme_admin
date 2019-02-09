@@ -1,0 +1,8 @@
+<section class="content">
+  <div class="box">
+    <h1 class="col-md-12 page-header">New Transaction</h1>
+
+    <%= render partial: "form", locals: {group: @group, transaction: @transaction, 
+      categories: @list_category} %>
+  </div>
+</section>
