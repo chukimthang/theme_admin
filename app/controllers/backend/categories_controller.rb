@@ -5,12 +5,12 @@ class Backend::CategoriesController < Backend::BaseController
   before_action :find_category, only: [:edit, :update, :destroy]
 
   def index
-    @breadcrumbs = {"Category" => admin_group_categories_path, "List" => nil}
+    @breadcrumbs = {"Group" => admin_groups_path, "Category" => admin_group_categories_path, "List" => nil}
     @categories = @group.categories.where(parent_id: nil).page(params[:page]).per(CONSTANT::PAGE_SIZE)
   end
 
   def new
-    @breadcrumbs = {"Category" => admin_group_categories_path, "New" => nil}
+    @breadcrumbs = {"Group" => admin_groups_path, "Category" => admin_group_categories_path, "New" => nil}
     @category = Category.new
     list_parent_category
   end
@@ -22,14 +22,14 @@ class Backend::CategoriesController < Backend::BaseController
         format.html {redirect_to admin_group_categories_path, notice: "Category was successfully created"}
       end
     else
-      @breadcrumbs = {"Category" => admin_group_categories_path, "New" => nil}
+      @breadcrumbs = {"Group" => admin_groups_path, "Category" => admin_group_categories_path, "New" => nil}
       list_parent_category
       render :new
     end
   end
 
   def edit
-    @breadcrumbs = {"Category" => admin_group_categories_path, "Edit" => nil}
+    @breadcrumbs = {"Group" => admin_groups_path, "Category" => admin_group_categories_path, "Edit" => nil}
     list_parent_category
   end
 
@@ -39,7 +39,7 @@ class Backend::CategoriesController < Backend::BaseController
         format.html {redirect_to admin_group_categories_path, notice: "Category was successfully updated"}
       end
     else
-      @breadcrumbs = {"Category" => admin_group_categories_path, "Edit" => nil}
+      @breadcrumbs = {"Group" => admin_groups_path, "Category" => admin_group_categories_path, "Edit" => nil}
       list_parent_category
       render :edit
     end
