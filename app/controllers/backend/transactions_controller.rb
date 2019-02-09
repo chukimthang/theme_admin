@@ -1,4 +1,6 @@
 class Backend::TransactionsController < Backend::BaseController
+  include TransactionsHelper
+
   authorize_resource
 
   before_action :find_group
@@ -6,7 +8,9 @@ class Backend::TransactionsController < Backend::BaseController
 
   def index
     @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "List" => nil}
-    @transactions = @group.transactions.page(params[:page]).per(CONSTANT::PAGE_SIZE)
+    @income = @group.transactions.income.sum(&:amount)
+    @expense = @group.transactions.expense.sum(&:amount)
+    @transactions = @group.transactions.page(params[:page]).per(5)
   end
 
   def new
@@ -34,14 +38,19 @@ class Backend::TransactionsController < Backend::BaseController
   end
 
   def update
-    if @transaction.update_attributes transaction_params
-      respond_to do |format|
-        format.html {redirect_to admin_group_transactions_path, notice: "Transaction was successfully updated"}
+    old_amount = @transaction.amount
+
+    ActiveRecord::Base.transaction do
+      if @transaction.update_attributes transaction_params
+        update_buget @transaction, old_amount
+        respond_to do |format|
+          format.html {redirect_to admin_group_transactions_path, notice: "Transaction was successfully updated"}
+        end
+      else
+        @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "Edit" => nil}
+        list_param
+        render :edit
       end
-    else
-      @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "Edit" => nil}
-      list_param
-      render :edit
     end
   end
 
