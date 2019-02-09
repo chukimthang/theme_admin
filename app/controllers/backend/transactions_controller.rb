@@ -5,12 +5,12 @@ class Backend::TransactionsController < Backend::BaseController
   before_action :find_transaction, only: [:edit, :update, :destroy]
 
   def index
-    @breadcrumbs = {"Transactions" => admin_group_transactions_path, "List" => nil}
+    @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "List" => nil}
     @transactions = @group.transactions.page(params[:page]).per(CONSTANT::PAGE_SIZE)
   end
 
   def new
-    @breadcrumbs = {"Transactions" => admin_group_transactions_path, "New" => nil}
+    @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "New" => nil}
     @transaction = Transaction.new
     list_param
   end
@@ -22,14 +22,14 @@ class Backend::TransactionsController < Backend::BaseController
         format.html {redirect_to admin_group_transactions_path, notice: "Transaction was successfully created"}
       end
     else
-      @breadcrumbs = {"Transaction" => admin_group_transactions_path, "New" => nil}
+      @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "New" => nil}
       list_param
       render :new
     end
   end
 
   def edit
-    @breadcrumbs = {"Transactions" => admin_group_transactions_path, "Edit" => nil}
+    @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "Edit" => nil}
     list_param
   end
 
@@ -39,7 +39,7 @@ class Backend::TransactionsController < Backend::BaseController
         format.html {redirect_to admin_group_transactions_path, notice: "Transaction was successfully updated"}
       end
     else
-      @breadcrumbs = {"Transaction" => admin_group_transactions_path, "Edit" => nil}
+      @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "Edit" => nil}
       list_param
       render :edit
     end

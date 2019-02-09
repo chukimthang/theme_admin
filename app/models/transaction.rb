@@ -2,7 +2,7 @@ class Transaction < ApplicationRecord
   belongs_to :category, optional: true
   belongs_to :group
 
-  validates :amount, presence: true
+  validates :amount, presence: true, numericality: {greater_than: 0, less_than: 100000000000000}
   validates :description, length: {minimum: 2, maximum: 255}
   validates :category_id, presence: true, if: :expense?
 
