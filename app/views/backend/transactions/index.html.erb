@@ -12,50 +12,86 @@
     </div>
 
     <div class="box-body">
-      <table class="table table-bordered listing-table">
+      <% if @transactions.present? %>
+        <table class="table table-bordered listing-table">
+          <thead>
+          <tr>
+            <th class="col-md-1">Index</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Created at</th>
+            <th class="col-md-1">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @transactions.each_with_index do |transaction, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td>
+                <% number = number_to_currency(transaction.amount, unit: "đ ") %>
+                <% if transaction.expense? %>
+                  <span class="expense">- <%= number %></span>
+                <% else %>
+                  <span class="income">+ <%= number %></span>
+                <% end %>
+              </td>
+              <td><%= transaction.description %></td>
+              <td><%= format_to_only_date transaction.created_at %></td>
+              <td>
+                <%= link_to edit_admin_group_transaction_path(group_id: transaction.group_id,
+                  id: transaction.id), class: "action-icon edit" do %>
+                  <span class="fa fa-edit"></span>
+                <% end %>
+                <%= link_to "#modal-delete", class: "action-icon remove",
+                  data: {toggle: "modal", url: "/admin/groups/#{transaction.group_id}/transactions/#{transaction.id}"} do %>
+                  <span class="fa fa-remove"></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+        <div class="text-center">
+          <%= paginate @transactions, theme: "twitter-bootstrap-3" %>
+        </div>
+      <% end %>
+
+      <br>
+      <table class="table table-bordered table-striped">
         <thead>
-        <tr>
-          <th class="col-md-1">Index</th>
-          <th>Amount</th>
-          <th>Description</th>
-          <th>Created at</th>
-          <th class="col-md-1">Action</th>
-        </tr>
+          <tr>
+            <th class="col-md-3">Income</th>
+            <th class="col-md-3">Expense</th>
+            <th class="col-md-3">Saved</th>
+            <th class="col-md-3">Current money</th>
+          </tr>
         </thead>
         <tbody>
-        <% @transactions.each_with_index do |transaction, index| %>
           <tr>
-            <td><%= index + 1 %></td>
+            <td><span class="income"><%= number_to_currency(@income, unit: "đ ") %></span></td>
+            <td><span class="expense"><%= number_to_currency(@expense, unit: "đ ") %></span></td>
+            <% saved = @income - @expense %>
             <td>
-              <% number = number_to_currency(transaction.amount, unit: "đ ") %>
-              <% if transaction.expense? %>
-                <span class="expense">- <%= number %></span>
+              <% if saved > 0 %>
+                <span class="income"><%= number_to_currency(saved, unit: "đ ") %></span>
               <% else %>
-                <span class="income">+ <%= number %></span>
+                <span class="expense"><%= number_to_currency(saved, unit: "đ ") %></span>
               <% end %>
             </td>
-            <td><%= transaction.description %></td>
-            <td><%= format_to_only_date transaction.created_at %></td>
             <td>
-              <%= link_to edit_admin_group_transaction_path(group_id: transaction.group_id,
-                id: transaction.id), class: "action-icon edit" do %>
-                <span class="fa fa-edit"></span>
-              <% end %>
-              <%= link_to "#modal-delete", class: "action-icon remove",
-                data: {toggle: "modal", url: "/admin/groups/#{transaction.group_id}/transactions/#{transaction.id}"} do %>
-                <span class="fa fa-remove"></span>
+              <% if @group.total_buget > 0 %>
+                <span class="income"><%= number_to_currency(@group.total_buget, unit: "đ ") %></span>
+              <% else %>
+                <span class="expense"><%= number_to_currency(@group.total_buget, unit: "đ ") %></span>
               <% end %>
             </td>
           </tr>
-        <% end %>
         </tbody>
       </table>
-
-      <div class="text-center">
-        <%= paginate @transactions, theme: "twitter-bootstrap-3" %>
-      </div>
     </div>
   </div>
 </section>
+<div class="clearfix"></div>
 
 <%= render partial: "backend/shared/delete", locals: {model_name: "Transaction"} %>

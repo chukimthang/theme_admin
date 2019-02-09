@@ -7,4 +7,19 @@ class Transaction < ApplicationRecord
   validates :category_id, presence: true, if: :expense?
 
   enum kind: [:expense, :income]
+
+  after_create :add_buget
+  after_destroy :destroy_buget
+
+  private
+
+  def add_buget
+    total_buget = self.expense? ? (group.total_buget - amount) : (group.total_buget + amount) 
+    group.update_attributes(total_buget: total_buget)
+  end
+
+  def destroy_buget
+    total_buget = self.expense? ? (group.total_buget + amount) : (group.total_buget - amount) 
+    group.update_attributes(total_buget: total_buget)
+  end
 end
