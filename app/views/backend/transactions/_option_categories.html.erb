@@ -1,0 +1,18 @@
+ <option value="">-- All --</option>
+<% categories.each do |cate| %>
+  <% ancestors = cate.get_ancestors %>
+
+  <% ancestors.each do |a| %>
+    <% indent = " ---  " * a[0] %>
+    <% if params[:q].present? && params[:q][:category_id_eq].to_i == a[1].id %>
+      <option value="<%= params[:category_id_eq] %>" selected>
+        <%= indent + a[1].name %></option>
+    <% else %>
+      <% if category_id == a[1].id %>
+        <option value="<%= a[1].id %>" selected><%= indent + a[1].name %></option>
+      <% else %>
+        <option value="<%= a[1].id %>"><%= indent + a[1].name %></option>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

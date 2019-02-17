@@ -4,7 +4,7 @@ $(document).on("turbolinks:load page:change", function() {
       $(".alert").alert("close");
     });
 
-    $("#datepicker").datepicker({
+    $(".datepicker").datepicker({
       autoclose: true,
       format: 'yyyy-mm-dd',
     });
@@ -24,6 +24,7 @@ $(document).on("turbolinks:load page:change", function() {
   });
 
   $(".toggle").bootstrapToggle();
+  $('[data-toggle="tooltip"]').tooltip(); 
 });
 
 function readURL(input) {

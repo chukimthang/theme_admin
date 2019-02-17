@@ -39,23 +39,8 @@
       <div class="col-md-8">
         <select class="form-control select2" id="category_id" 
           name="transaction[category_id]">
-          <option value="">-- Choose --</option>
-          <% categories.each do |cate| %>
-            <% ancestors = cate.get_ancestors %>
-
-            <% ancestors.each do |a| %>
-              <% indent = " ---  " * a[0] %>
-              <% if transaction.category_id == a[1].id %>
-                <option value="<%= a[1].id %>" selected>
-                  <%= indent + a[1].name %>
-                </option>
-              <% else %>
-                <option value="<%= a[1].id %>">
-                  <%= indent + a[1].name %>    
-                </option>
-              <% end %>
-            <% end %>
-          <% end %>
+          <%= render partial: "backend/transactions/option_categories", 
+            locals: {category_id: transaction.category_id, categories: @list_category} %>
         </select>
         <%= show_errors transaction, :category_id %>
       </div>
@@ -65,6 +50,7 @@
   <div class="box-footer">
     <div class="col-md-8">
       <%= f.submit "Save", class: "btn btn-info col-md-offset-4" %>
+      <%= link_to "Cancel", admin_group_transactions_path, class: "btn btn-default" %>
     </div>
   </div>
   <div class="clearfix"></div>

@@ -47,8 +47,8 @@
         <%= ff.label :birthday, class: "col-md-4 control-label" %>
 
         <div class="col-md-8 input-group date">
-          <%= ff.text_field :birthday, class: "form-control pull-right", id: "datepicker",
-                            value: show_date_in_form(user.profile_birthday) %>
+          <%= ff.text_field :birthday, class: "form-control pull-right datepicker", 
+            value: show_date_in_form(user.profile_birthday) %>
           <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
           </div>

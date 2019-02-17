@@ -20,5 +20,14 @@ $(document).on("turbolinks:load", function() {
     }
 
     $(".transaction-edit .icheck-me").iCheck("disable");
+
+    $("#seach-form-transaction").on("click", ".reset", function() {
+      $("#category_id").val("");
+      $("#q_created_at_gteq").val("");
+      $("#q_created_at_lteq").val("");
+      $("#q_description_cont").val("");
+      $("#q_amount_gteq").val("");
+      $("#q_amount_lteq").val("");
+    });
   });
 });

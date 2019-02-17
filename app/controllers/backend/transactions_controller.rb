@@ -8,9 +8,15 @@ class Backend::TransactionsController < Backend::BaseController
 
   def index
     @breadcrumbs = {"Group" => admin_groups_path, "Transaction" => admin_group_transactions_path, "List" => nil}
-    @income = @group.transactions.income.sum(&:amount)
-    @expense = @group.transactions.expense.sum(&:amount)
-    @transactions = @group.transactions.page(params[:page]).per(5)
+    params[:q] ||= {}
+    @q = @group.transactions.order(created_at: :desc).ransack(params[:q])
+
+    @transactions = @q.result(distinct: true).page(params[:page]).per(5)
+    @expense = @group.transactions.expense.ransack(params[:q]).result(distinct: true).sum(&:amount)
+    @income = @group.transactions.income.ransack(params[:q]).result(distinct: true).sum(&:amount)
+
+    @kinds = Transaction.kinds.to_a
+    list_param
   end
 
   def new

@@ -11,6 +11,10 @@ class Transaction < ApplicationRecord
   after_create :add_buget
   after_destroy :destroy_buget
 
+  ransacker :created_at, formatter: proc { |value| Date.parse(value).strftime('%Y-%m-%d') } do
+    Arel.sql("DATE(transactions.created_at)")
+  end
+
   private
 
   def add_buget

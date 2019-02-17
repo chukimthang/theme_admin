@@ -2,6 +2,11 @@
 @import "froala_editor.min";
 @import "froala_style.min";
 
+body {
+  min-width: 665px; 
+  overflow-x: auto;
+}
+
 .breadcrumb {
   border-bottom: 1px solid #cdcdc352;
   background-color: #ECF0F5;
@@ -52,11 +57,6 @@
 
 .radio-content input[type=radio] {
   margin-right: 3px;
-}
-
-.input-group.date {
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .file-upload {
@@ -114,10 +114,6 @@
   margin-right: 5px;
 }
 
-.search-form .field-search input[type=search] {
-  width: 90%;
-}
-
 .search-form .button-head-wrapper {
   margin-top: 5px;
 }
@@ -160,4 +156,16 @@ ul.gr-validation-errors {
 
 .income {
   color: #51b44f;
+}
+
+.field-search .row {
+  padding-right: 20px;
+}
+
+.current-money-wrapper {
+  padding: 15px;
+}
+
+.current-money-wrapper h4 {
+  font-weight: bold;
 }

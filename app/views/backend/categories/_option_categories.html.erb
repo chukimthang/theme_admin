@@ -1,0 +1,13 @@
+ <option value="">-- Choose parent --</option>
+<% categories.each do |cate| %>
+  <% ancestors = cate.get_ancestors %>
+
+  <% ancestors.each do |a| %>
+    <% indent = " ---  " * a[0] %>
+    <% if category.try(:parent_id) == a[1].id %>
+      <option value="<%= a[1].id %>" selected><%= indent + a[1].name %></option>
+    <% else %>
+      <option value="<%= a[1].id %>"><%= indent + a[1].name %></option>
+    <% end %>
+  <% end %>
+<% end %>
