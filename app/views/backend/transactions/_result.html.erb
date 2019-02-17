@@ -1,0 +1,35 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="col-md-4">Income</th>
+      <th class="col-md-4">Expense</th>
+      <th class="col-md-4">Saved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="income">+<%= number_to_currency(@income, unit: "đ ") %></span></td>
+      <td><span class="expense">-<%= number_to_currency(@expense, unit: "đ ") %></span></td>
+      <% saved = @income - @expense %>
+      <td>
+        <% if saved > 0 %>
+          <span class="income"><%= number_to_currency(saved, unit: "đ ") %></span>
+        <% else %>
+          <span class="expense"><%= number_to_currency(saved, unit: "đ ") %></span>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div align="center" class="current-money-wrapper">
+  <h4>
+    <span>Current money: </span>
+    <% if @group.total_buget >= 0 %>
+      <span class="income">+ <%= number_to_currency(@group.total_buget, unit: "đ ") %></span>
+    <% else %>
+      <span class="expense">- <%= number_to_currency(@group.total_buget, unit: "đ ") %></span>
+    <% end %>
+  </h4>
+</div>
+

@@ -1,0 +1,77 @@
+<%= search_form_for @q, url: admin_group_transactions_path, method: "get", html: {class: "search-form", id: "seach-form-transaction", autocomplete: "off"} do |f| %>
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :kind_cont, "Kind" %>
+      <%= f.select :kind_cont, options_for_select(@kinds, params[:q][:kind_cont]), 
+        {:include_blank => "-- All --"}, {class: "form-control"} %>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :category_id_cont, "Expense Category" %>
+      <select class="form-control select2" id="category_id" 
+        name="q[category_id_eq]">
+        <%= render partial: "backend/transactions/option_categories", 
+          locals: {category_id: nil, categories: @list_category} %>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :created_at_gteq, "Start Date" %>
+      <div class="input-group date">
+        <%= f.search_field :created_at_gteq, class: "form-control pull-right datepicker",
+                          value: params[:q][:created_at_gteq] %>
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :created_at_lteq, "End Date" %>
+      <div class="input-group date">
+        <%= f.search_field :created_at_lteq, class: "form-control pull-right datepicker",
+                          value: params[:q][:created_at_lteq] %>
+        <div class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :description_cont, "Description" %>
+      <%= f.search_field :description_cont, class: "form-control",
+                        value: params[:q][:description_cont] %>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :amount_gteq, "From Amount" %>
+      <%= f.search_field :amount_gteq, class: "form-control",
+                        value: params[:q][:amount_gteq] %>
+    </div>
+  </div>
+
+  <div class="col-md-3 field-search">
+    <div class="row">
+      <%= f.label :amount_lteq, "To Amount" %>
+      <%= f.search_field :amount_lteq, class: "form-control",
+                        value: params[:q][:amount_lteq] %>
+    </div>
+  </div>
+
+  <div class="col-md-12 button-head-wrapper">
+    <div class="row">
+      <%= f.submit "Search", class: "btn btn-info" %>
+      <%= link_to "Reset", "javascript:void(0)", class: "btn btn-default reset" %>
+    </div>
+  </div>
+<% end %>

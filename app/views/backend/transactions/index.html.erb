@@ -3,23 +3,30 @@
 
 <section class="content listing-wrapper" id="transaction-listing">
   <div class="box">
-    <div class="col-md-12 page-header">
-      <h3 class="pull-left">List Transaction</h3>
-      <div class="pull-right">
+    <div class="row page-header">
+      <h3 class="col-md-11">List Transaction</h3>
+      <div class="col-md-1">
         <%= link_to "Add", new_admin_group_transaction_path, 
           class: "btn btn-primary" %>
       </div>
     </div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 content-border-bottom">
+      <%= render partial: "backend/transactions/search" %>
+    </div>
+    <div class="clearfix"></div>
 
     <div class="box-body">
       <% if @transactions.present? %>
-        <table class="table table-bordered listing-table">
+        <table class="col-md-12 table table-bordered listing-table">
           <thead>
           <tr>
             <th class="col-md-1">Index</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Created at</th>
+            <th class="col-md-2">Amount</th>
+            <th class="col-md-4">Description</th>
+            <th class="col-md-2">Category</th>
+            <th class="col-md-2">Created at</th>
             <th class="col-md-1">Action</th>
           </tr>
           </thead>
@@ -35,7 +42,14 @@
                   <span class="income">+ <%= number %></span>
                 <% end %>
               </td>
-              <td><%= transaction.description %></td>
+              <td>
+                <%= link_to edit_admin_group_transaction_path(group_id: transaction.group_id,
+                  id: transaction.id), data: {toggle: "tooltip", "placement": "top",
+                  "original-title": "#{transaction.description}"} do %>
+                  <%= transaction.description.truncate(45) %>
+                <% end %>
+              </td>
+              <td><%= transaction.category.try(:name) %></td>
               <td><%= format_to_only_date transaction.created_at %></td>
               <td>
                 <%= link_to edit_admin_group_transaction_path(group_id: transaction.group_id,
@@ -56,39 +70,8 @@
           <%= paginate @transactions, theme: "twitter-bootstrap-3" %>
         </div>
       <% end %>
-
       <br>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="col-md-3">Income</th>
-            <th class="col-md-3">Expense</th>
-            <th class="col-md-3">Saved</th>
-            <th class="col-md-3">Current money</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="income"><%= number_to_currency(@income, unit: "đ ") %></span></td>
-            <td><span class="expense"><%= number_to_currency(@expense, unit: "đ ") %></span></td>
-            <% saved = @income - @expense %>
-            <td>
-              <% if saved > 0 %>
-                <span class="income"><%= number_to_currency(saved, unit: "đ ") %></span>
-              <% else %>
-                <span class="expense"><%= number_to_currency(saved, unit: "đ ") %></span>
-              <% end %>
-            </td>
-            <td>
-              <% if @group.total_buget > 0 %>
-                <span class="income"><%= number_to_currency(@group.total_buget, unit: "đ ") %></span>
-              <% else %>
-                <span class="expense"><%= number_to_currency(@group.total_buget, unit: "đ ") %></span>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <%= render partial: "backend/transactions/result" %>
     </div>
   </div>
 </section>

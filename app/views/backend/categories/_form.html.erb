@@ -14,19 +14,8 @@
       <%= f.label :parent_id, "Parent Category", class: "col-md-4 control-label" %>
       <div class="col-md-8">
         <select class="form-control select2" id="category_id" name="category[parent_id]">
-          <option value="">-- All --</option>
-          <% list_category.each do |cate| %>
-            <% ancestors = cate.get_ancestors %>
-
-            <% ancestors.each do |a| %>
-              <% indent = " ---  " * a[0] %>
-              <% if category.parent_id == a[1].id %>
-                <option value="<%= a[1].id %>" selected><%= indent + a[1].name %></option>
-              <% else %>
-                <option value="<%= a[1].id %>"><%= indent + a[1].name %></option>
-              <% end %>
-            <% end %>
-          <% end %>
+          <%= render partial: "backend/categories/option_categories", 
+            locals: {category: category, categories: categories} %>
         </select>
       </div>
     </div>

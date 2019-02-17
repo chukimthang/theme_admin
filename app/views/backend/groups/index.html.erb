@@ -25,12 +25,17 @@
           <tr>
             <td><%= index + 1 %></td>
             <td>
-              <%= link_to admin_group_transactions_path(group) do %>
+              <%= link_to admin_group_transactions_path(group), 
+                data: {toggle: "tooltip", "placement": "right",
+                "original-title": "Join group"} do %>
                 <%= group.name %>
               <% end %>
             </td>
             <td><%= format_to_only_date group.created_at %></td>
             <td>
+              <%= link_to admin_group_transactions_path(group) do %>
+                <i class="fa fa-eye"></i>
+              <% end %>
               <%= link_to "javascript:void(0)", class: "action-icon edit", data: {id: group.id} do %>
                 <span class="fa fa-edit"></span>
               <% end %>
