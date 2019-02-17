@@ -1,4 +1,5 @@
-<%= search_form_for @q, url: "/admin/users", method: "get", html: {class: "search-form", id: "seach-form-user"} do |f| %>
+<%= search_form_for @q, url: "/admin/users", method: "get", 
+  html: {class: "search-form", id: "seach-form-user", autocomplete: "off"} do |f| %>
   <div class="col-md-3 field-search">
     <div class="row">
       <%= f.label :email_cont, "Email" %>
