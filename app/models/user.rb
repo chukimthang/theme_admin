@@ -21,4 +21,15 @@ class User < ApplicationRecord
   delegate :birthday, to: :profile, allow_nil: true, prefix: true
 
   enum role: [:normal_user, :super_admin]
+
+  after_create :create_group_and_category
+
+  private
+
+  def create_group_and_category
+    group = groups.create(name: "My Group")
+    CONSTANT::CATEGORIES.each do |category|
+      group.categories.create(name: category)
+    end
+  end
 end
